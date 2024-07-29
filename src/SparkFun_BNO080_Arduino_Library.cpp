@@ -1367,16 +1367,16 @@ void BNO080::clearTare()
 //Given a sensor's report ID, this tells the BNO080 to begin reporting the values
 void BNO080::setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports)
 {
-	setFeatureCommand(reportID, timeBetweenReports, 0); //No specific config
+	setFeatureCommand(reportID, timeBetweenReports, 0, 0); // No specific config
 }
 
 //Given a sensor's report ID, this tells the BNO080 to begin reporting the values
 //Also sets the specific config word. Useful for personal activity classifier
-void BNO080::setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports, uint32_t specificConfig)
+void BNO080::setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports, uint32_t specificConfig, uint32_t batchInterval)
 {
 	long microsBetweenReports = (long)timeBetweenReports * 1000L;
 
-	shtpData[0] = SHTP_REPORT_SET_FEATURE_COMMAND;	 //Set feature command. Reference page 55
+	shtpData[0] = SHTP_REPORT_SET_FEATURE_COMMAND;	   //Set feature command. Reference page 55
 	shtpData[1] = reportID;							   //Feature Report ID. 0x01 = Accelerometer, 0x05 = Rotation vector
 	shtpData[2] = 0;								   //Feature flags
 	shtpData[3] = 0;								   //Change sensitivity (LSB)
@@ -1385,14 +1385,16 @@ void BNO080::setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports, ui
 	shtpData[6] = (microsBetweenReports >> 8) & 0xFF;  //Report interval
 	shtpData[7] = (microsBetweenReports >> 16) & 0xFF; //Report interval
 	shtpData[8] = (microsBetweenReports >> 24) & 0xFF; //Report interval (MSB)
-	shtpData[9] = 0;								   //Batch Interval (LSB)
-	shtpData[10] = 0;								   //Batch Interval
-	shtpData[11] = 0;								   //Batch Interval
-	shtpData[12] = 0;								   //Batch Interval (MSB)
+
+	shtpData[9] = (batchInterval >> 0) & 0xFF;		   //Batch Interval (LSB)
+	shtpData[10] = (batchInterval >> 0) & 0xFF;	   	   //Batch Interval
+	shtpData[11] = (batchInterval >> 0) & 0xFF;	       //Batch Interval
+	shtpData[12] = (batchInterval >> 0) & 0xFF;	       //Batch Interval (MSB)
+
 	shtpData[13] = (specificConfig >> 0) & 0xFF;	   //Sensor-specific config (LSB)
 	shtpData[14] = (specificConfig >> 8) & 0xFF;	   //Sensor-specific config
-	shtpData[15] = (specificConfig >> 16) & 0xFF;	  //Sensor-specific config
-	shtpData[16] = (specificConfig >> 24) & 0xFF;	  //Sensor-specific config (MSB)
+	shtpData[15] = (specificConfig >> 16) & 0xFF;	   //Sensor-specific config
+	shtpData[16] = (specificConfig >> 24) & 0xFF;	   //Sensor-specific config (MSB)
 
 	//Transmit packet on channel 2, 17 bytes
 	sendPacket(CHANNEL_CONTROL, 17);

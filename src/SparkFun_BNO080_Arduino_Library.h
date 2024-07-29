@@ -34,7 +34,7 @@
 #include <SPI.h>
 
 //The default I2C address for the BNO080 on the SparkX breakout is 0x4B. 0x4A is also possible.
-#define BNO080_DEFAULT_ADDRESS 0x4B
+#define BNO080_DEFAULT_ADDRESS 0x4A
 
 //Platform specific configurations
 
@@ -279,6 +279,7 @@ public:
 
 	void setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports);
 	void setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports, uint32_t specificConfig);
+	void setFeatureCommand(uint8_t reportID, uint16_t timeBetweenReports, uint32_t specificConfig, uint32_t batchInterval);
 	void sendCommand(uint8_t command);
 	void sendCalibrateCommand(uint8_t thingToCalibrate);
 	void sendTareCommand(uint8_t command, uint8_t axis=TARE_AXIS_ALL, uint8_t rotationVectorBasis=TARE_ROTATION_VECTOR);
