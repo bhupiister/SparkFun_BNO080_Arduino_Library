@@ -202,6 +202,11 @@ public:
 	float getAccelZ();
 	uint8_t getAccelAccuracy();
 
+	//Return the acceleration component
+	uint16_t getAccelXraw();
+	uint16_t getAccelYraw();
+	uint16_t getAccelZraw();
+
 	void getLinAccel(float &x, float &y, float &z, uint8_t &accuracy);
 	float getLinAccelX();
 	float getLinAccelY();
@@ -261,9 +266,9 @@ public:
 	uint8_t getStabilityClassifier();
 	uint8_t getActivityClassifier();
 
-	int16_t getRawAccelX();
-	int16_t getRawAccelY();
-	int16_t getRawAccelZ();
+	uint16_t getRawAccelX();
+	uint16_t getRawAccelY();
+	uint16_t getRawAccelZ();
 
 	int16_t getRawGyroX();
 	int16_t getRawGyroY();

@@ -634,6 +634,24 @@ float BNO080::getAccelZ()
 }
 
 //Return the acceleration component
+uint16_t BNO080::getAccelXraw()
+{
+	return (rawAccelX);
+}
+
+//Return the acceleration component
+uint16_t BNO080::getAccelYraw()
+{
+	return (rawAccelY);
+}
+
+//Return the acceleration component
+uint16_t BNO080::getAccelZraw()
+{
+	return (rawAccelZ);
+}
+
+//Return the acceleration component
 uint8_t BNO080::getAccelAccuracy()
 {
 	return (accelAccuracy);
@@ -905,17 +923,17 @@ uint32_t BNO080::getTimeStamp()
 }
 
 //Return raw mems value for the accel
-int16_t BNO080::getRawAccelX()
+uint16_t BNO080::getRawAccelX()
 {
 	return (memsRawAccelX);
 }
 //Return raw mems value for the accel
-int16_t BNO080::getRawAccelY()
+uint16_t BNO080::getRawAccelY()
 {
 	return (memsRawAccelY);
 }
 //Return raw mems value for the accel
-int16_t BNO080::getRawAccelZ()
+uint16_t BNO080::getRawAccelZ()
 {
 	return (memsRawAccelZ);
 }
